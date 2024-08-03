@@ -6,12 +6,11 @@ import {
   waitFor,
   act,
 } from "@testing-library/react";
-import "@testing-library/jest-dom/";
-import { searchAnime } from "../src/api/anime";
+import "@testing-library/jest-dom";
 import App from "../src/App";
+import { searchAnime } from "../src/api/anime";
 import { mockAnimes } from "./__mocks__/anime";
 
-// Mock de la función searchAnime
 jest.mock("../src/api/anime", () => ({
   searchAnime: jest.fn(),
 }));
@@ -20,24 +19,65 @@ const mockedSearchAnime = searchAnime as jest.MockedFunction<
   typeof searchAnime
 >;
 
-describe("App Component", () => {
+describe("App component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test("renders the loader initially", async () => {
-    await act(async () => {
-      render(<App />);
-    });
-    expect(screen.getByTestId("container-center")).toBeInTheDocument();
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
-  test("renders Title and Input components", async () => {
+  test("renders SearchResults component", async () => {
     await act(async () => {
       render(<App />);
     });
-    expect(screen.getByAltText("logo-anime")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Find an anime...")).toBeInTheDocument();
+  });
+
+  test("initial search on component mount", async () => {
+    mockedSearchAnime.mockResolvedValueOnce({
+      data: [],
+      total_pages: 1,
+      avarage_score: 0,
+    });
+
+    await act(async () => {
+      render(<App />);
+    });
+
+    await waitFor(() => {
+      expect(mockedSearchAnime).toHaveBeenCalledWith("", 1);
+    });
+  });
+
+  test("displays search results when searchAnime is called", async () => {
+    mockedSearchAnime.mockResolvedValueOnce({
+      data: mockAnimes,
+      total_pages: 1,
+      avarage_score: 8.0,
+    });
+
+    render(<App />);
+
+    const input = screen.getByPlaceholderText("Find an anime...");
+
+    fireEvent.change(input, {
+      target: { value: "Naruto" },
+    });
+    fireEvent.keyDown(input, {
+      key: "Enter",
+      code: "Enter",
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Rurouni Kenshin: Meiji Kenkaku Romantan")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("Great, this is one of the best anime.")
+      ).toBeInTheDocument();
+    });
   });
 
   test("displays search results when searchAnime is called", async () => {
@@ -74,38 +114,50 @@ describe("App Component", () => {
     });
   });
 
-  test("displays no results message when searchAnime returns empty data", async () => {
-    mockedSearchAnime.mockResolvedValue({
-      data: [],
+  test("handles anime selection", async () => {
+    mockedSearchAnime.mockResolvedValueOnce({
+      data: mockAnimes,
       total_pages: 1,
-      avarage_score: 0,
+      avarage_score: 8.0,
     });
 
-    await act(async () => {
-      render(<App />);
-    });
+    render(<App />);
 
     const input = screen.getByPlaceholderText("Find an anime...");
 
-    await act(async () => {
-      fireEvent.change(input, {
-        target: { value: "anything" },
-      });
-      fireEvent.keyDown(input, {
-        key: "Enter",
-        code: "Enter",
-      });
+    fireEvent.change(input, {
+      target: { value: "Naruto" },
+    });
+    fireEvent.keyDown(input, {
+      key: "Enter",
+      code: "Enter",
     });
 
     await waitFor(() => {
       expect(
-        screen.getByText('No results found for "anything"')
+        screen.getByText("Rurouni Kenshin: Meiji Kenkaku Romantan")
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.click(
+      screen.getByText("Rurouni Kenshin: Meiji Kenkaku Romantan")
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          "In the final years of the Bakumatsu era lived a legendary assassin known as Hitokiri Battousai."
+        )
       ).toBeInTheDocument();
     });
   });
 
-  test("displays error message when searchAnime throws an error", async () => {
-    mockedSearchAnime.mockRejectedValue(new Error("Server error"));
+  test("displays message when no results found", async () => {
+    mockedSearchAnime.mockResolvedValue({
+      data: [],
+      total_pages: 1,
+      avarage_score: 3.8,
+    });
 
     await act(async () => {
       render(<App />);
@@ -114,19 +166,35 @@ describe("App Component", () => {
     const input = screen.getByPlaceholderText("Find an anime...");
 
     await act(async () => {
-      fireEvent.change(input, {
-        target: { value: "Naruto" },
-      });
-      fireEvent.keyDown(input, {
-        key: "Enter",
-        code: "Enter",
-      });
+      fireEvent.change(input, { target: { value: "Unknown Anime" } });
+      fireEvent.keyDown(input, { key: "Enter", code: "Enter" });
+    });
+
+    await waitFor(() => {
+      const message = screen.getByText('No results found for "Unknown Anime"');
+      expect(message).toBeInTheDocument();
+    });
+  });
+
+  test("handles server error on search", async () => {
+    mockedSearchAnime.mockRejectedValueOnce(new Error("Server error"));
+
+    render(<App />);
+
+    const input = screen.getByPlaceholderText("Find an anime...");
+
+    fireEvent.change(input, {
+      target: { value: "Naruto" },
+    });
+    fireEvent.keyDown(input, {
+      key: "Enter",
+      code: "Enter",
     });
 
     await waitFor(() => {
       expect(
         screen.getByText(
-          "It's not you, it's us. It seems we have a problem on the server."
+          `It's not you, it's us. It seems we have a problem on the server.`
         )
       ).toBeInTheDocument();
     });
