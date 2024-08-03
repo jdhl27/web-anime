@@ -1,0 +1,15 @@
+.container-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-logo {
+  width: 14rem;
+  filter: drop-shadow(2px 4px 6px #fb312e);
+}
+
+.signature {
+  margin: 0;
+}
