@@ -1,0 +1,81 @@
+.container-all {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container-input {
+  align-items: center;
+  background-color: #252a34;
+  border: 1px solid #444b59;
+  border-radius: 34px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 20rem;
+  padding: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s,
+    transform 0.3s;
+}
+
+.container-input.active {
+  border-color: #1e88e5;
+  box-shadow: 0 0 5px rgba(30, 136, 229, 0.5);
+  background-color: #2c3142;
+  transform: scale(1.05);
+}
+
+.container-input.searching {
+  background-color: #2c3142;
+  cursor: wait;
+}
+
+input {
+  background-color: #252a34;
+  border: none;
+  color: #e0e0e0;
+  font-family: "Montserrat", sans-serif;
+  height: 20px;
+  outline: none;
+  margin-left: 10px;
+  flex: 1;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+input:focus {
+  background-color: #2c3142;
+}
+
+input.searching {
+  background-color: #2c3142;
+  cursor: wait;
+}
+
+.search-icon {
+  transition: transform 0.3s;
+}
+
+.search-icon.spin {
+  transform: rotate(360deg);
+  transition: transform 0.5s;
+}
+
+.text-info {
+  margin-left: 150px;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.text-info.fade-in {
+  opacity: 1;
+}
+
+.text-info.fade-out {
+  opacity: 0;
+}
