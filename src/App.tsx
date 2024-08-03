@@ -170,7 +170,7 @@ function App() {
   return (
     <>
       <Loader isLoading={isLoading} />
-      <div className="container-center">
+      <div data-testid="container-center" className="container-center">
         <Title />
         <Input isSearching={isSearching} handleValueInput={handleSearch} />
       </div>
