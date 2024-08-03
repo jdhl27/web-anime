@@ -7,6 +7,6 @@ export interface Anime {
   recommendation: string;
   color: string;
   imageUrl?: string;
-  trailerUrl?: string;
+  trailerUrl?: string | null;
   year?: number;
 }
