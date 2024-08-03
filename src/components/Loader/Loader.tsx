@@ -15,6 +15,7 @@ function Loader({ isLoading }: LoaderProps) {
         className="loader-lottie"
         animationData={LoaderLottie}
         loop={true}
+        data-testid="lottie-animation"
       />
     </div>
   );

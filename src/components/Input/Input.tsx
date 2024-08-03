@@ -44,6 +44,7 @@ const Input: FC<InputProps> = ({ isSearching = false, handleValueInput }) => {
         }`}
       >
         <IoSearchOutline
+          data-testid="search-icon"
           className={`search-icon ${isSearching ? "spin" : ""}`}
         />
         <input

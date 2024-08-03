@@ -56,13 +56,15 @@ const Slider: React.FC<SliderProps> = ({
         size={40}
         className="slider-icon left"
         onClick={slideLeft}
+        data-testid="left-arrow"
       />
-      <div id="slider" ref={sliderRef}>
+      <div id="slider" ref={sliderRef} data-testid="slider">
         {slides.map((slide) => (
           <div
             className="slider-card"
             key={slide.malId}
             onClick={() => handleClickEvent(slide)}
+            data-testid={`slide-${slide.malId}`}
           >
             <div
               className="slider-card-image"
@@ -95,11 +97,15 @@ const Slider: React.FC<SliderProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   className="slider-card-trailer"
+                  data-testid={`trailer-${slide.malId}`}
                 >
                   watch trailer
                 </a>
               ) : (
-                <div className="slider-card-trailer not-available">
+                <div
+                  className="slider-card-trailer not-available"
+                  data-testid={`trailer-not-available-${slide.malId}`}
+                >
                   trailer not available
                 </div>
               )}
@@ -107,7 +113,10 @@ const Slider: React.FC<SliderProps> = ({
           </div>
         ))}
         {isLoadingMore && (
-          <div className="slider-card slider-loading-skeleton">
+          <div
+            data-testid="loading-skeleton"
+            className="slider-card slider-loading-skeleton"
+          >
             <div className="slider-card-image skeleton"></div>
             <div className="slider-card-content">
               <h3 className="slider-card-title skeleton"></h3>
@@ -126,6 +135,7 @@ const Slider: React.FC<SliderProps> = ({
         size={40}
         className="slider-icon right"
         onClick={slideRight}
+        data-testid="right-arrow"
       />
     </div>
   );
