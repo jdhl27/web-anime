@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
+# Web Anime
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a web application made in React + Vite + TypeScript where it consumes an external service to display animes by name.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**node:** 18.17.0
 
-## Expanding the ESLint configuration
+**react:** 18.3.1
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+**typescript:** 5.2.2
 
-- Configure the top-level `parserOptions` property like this:
+**vite:** 5.3.1
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Installation
+
+to install the dependencies
+
+```bash
+  npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+to run on localhost
+
+```bash
+  npm run dev
+```
+
+to run the tests
+
+```bash
+  npm test
+```
