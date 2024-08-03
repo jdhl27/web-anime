@@ -61,7 +61,7 @@ const Input: FC<InputProps> = ({ isSearching = false, handleValueInput }) => {
         />
       </div>
       <div className={`text-info ${isActive ? "fade-in" : "fade-out"}`}>
-        Presiona <PiKeyReturn /> para buscar
+        Press Enter <PiKeyReturn /> to search
       </div>
     </div>
   );
