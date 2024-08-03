@@ -65,6 +65,33 @@ function App() {
   };
 
   const loadMore = async () => {
+    if (isLoadingMore || currentPage >= totalPages) return;
+
+    setIsLoadingMore(true);
+
+    try {
+      const nextPage = currentPage + 1;
+      const data = await searchAnime(searchTerm.trim().toLowerCase(), nextPage);
+      // save data
+      setDataList((prevList) => [...prevList, ...data.data]);
+
+      // save current page
+      setCurrentPage(nextPage);
+
+      // avarage accumulator
+      const sum = avarageAccumulator + data.avarage_score;
+      setAvarageAccumulator(sum);
+
+      setAvarageScore(sum / nextPage);
+    } catch (error) {
+      setMessage(
+        `It's not you, it's us. It seems we have a problem on the server.`
+      );
+    } finally {
+      setTimeout(() => {
+        setIsLoadingMore(false);
+      }, 1000);
+    }
   };
 
   const handleSelectedAnime = (item: Anime) => {
