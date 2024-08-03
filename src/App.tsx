@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { searchAnime } from "./api/anime";
-import "./App.css";
-import Input from "./components/Input/Input";
 import { Anime } from "./types/anime";
-import Loader from "./components/Loader/Loader";
-import Title from "./components/Title/Title";
-import Slider from "./components/Slider/Slider";
+import SearchResults from "./components/SearchResult/SearchResult";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -103,80 +99,21 @@ function App() {
     }, 100);
   };
 
-  const renderDataContent = () => {
-    if (dataList.length > 0) {
-      return (
-        <>
-          {searchTerm.length > 1 && (
-            <div className="container-all-table">
-              <p>info: as the slider moves, the data may increase</p>
-              <table className="result-table">
-                <tbody>
-                  <tr>
-                    <td>Average score of the result:</td>
-                    <td className="average-score-total">
-                      {avarageScore === 0 ? "-" : avarageScore?.toFixed(1)} ★
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Total results:</td>
-                    <td className="result-total">{dataList.length}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          )}
-          <Slider
-            slides={dataList}
-            handleClickEvent={handleSelectedAnime}
-            loadMore={loadMore}
-            isLoadingMore={isLoadingMore}
-          />
-          {animeSelected && (
-            <div ref={animeInfoRef} className="anime-info">
-              <h2>{animeSelected.title}</h2>
-              {animeSelected.year !== 0 && (
-                <span
-                  className="slider-card-year"
-                  style={{ display: "block", marginBottom: "0.4rem" }}
-                >
-                  {animeSelected.year}
-                </span>
-              )}
-              <span
-                className="slider-card-score"
-                style={{ backgroundColor: animeSelected.color }}
-              >
-                {animeSelected.score === 0
-                  ? "-"
-                  : animeSelected.score.toFixed(1)}{" "}
-                ★
-              </span>
-              <p>{animeSelected.synopsis}</p>
-            </div>
-          )}
-        </>
-      );
-    } else if (message !== "") {
-      return (
-        <div className="message-info">
-          <h3>{message}</h3>
-        </div>
-      );
-    }
-    return null;
-  };
-
   return (
-    <>
-      <Loader isLoading={isLoading} />
-      <div data-testid="container-center" className="container-center">
-        <Title />
-        <Input isSearching={isSearching} handleValueInput={handleSearch} />
-      </div>
-      {renderDataContent()}
-      <div className="container-empty"></div>
-    </>
+    <SearchResults
+      isLoading={isLoading}
+      isLoadingMore={isLoadingMore}
+      isSearching={isSearching}
+      dataList={dataList}
+      avarageScore={avarageScore}
+      searchTerm={searchTerm}
+      message={message}
+      animeSelected={animeSelected}
+      animeInfoRef={animeInfoRef}
+      handleSearch={handleSearch}
+      loadMore={loadMore}
+      handleSelectedAnime={handleSelectedAnime}
+    />
   );
 }
 
