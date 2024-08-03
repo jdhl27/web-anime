@@ -64,6 +64,9 @@ function App() {
     }
   };
 
+  const loadMore = async () => {
+  };
+
   const handleSelectedAnime = (item: Anime) => {
     setAnimeSelected(item);
     setTimeout(() => {
