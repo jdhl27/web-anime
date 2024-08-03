@@ -1,0 +1,183 @@
+:root {
+  --slider-bg-color: #1c1e26;
+  --slider-bg-color-transparent: #00000000;
+  --slider-card-bg-color: #80902666;
+  --slider-card-shadow: rgba(0, 0, 0, 0.5);
+  --slider-card-hover-shadow: rgba(184, 184, 184, 0.2);
+  --slider-icon-bg: #ffffff;
+  --slider-icon-hover-opacity: 1;
+  --slider-icon-opacity: 0.5;
+  --text-color: #ffffff;
+  --text-muted-color: #b0b0b0;
+  --accent-color: #3b5998;
+  --accent-color-hover: #30487b;
+  --accent-color-score: #ffd700;
+  --font-size-base: 1.2rem;
+  --font-size-small: 0.7rem;
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --border-radius: 0.625rem;
+}
+
+#main-slider-container {
+  width: 90%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+}
+
+#slider {
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+#slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-card-title {
+  font-weight: 700;
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slider-card-type {
+  margin-top: 0;
+}
+
+.slider-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-small);
+}
+
+.slider-card-score {
+  background-color: var(--accent-color-score);
+  color: var(--text-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--text-color);
+}
+
+.slider-card-year {
+  color: var(--text-muted-color);
+}
+
+.slider-card-recommendation {
+  background-color: #414141;
+  text-align: center;
+  color: #fff;
+  font-size: var(--font-size-small);
+  padding: 0.25rem 0.5rem;
+  margin-bottom: var(--spacing-small);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.slider-card-image {
+  width: 100%;
+  height: 27.75rem;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+  mask-image: linear-gradient(to bottom, #0a0f20 80%, transparent 100%);
+}
+
+.slider-icon {
+  color: var(--slider-bg-color);
+  transition: background 0.3s;
+}
+
+.slider-icon.left,
+.slider-icon.right {
+  background: var(--slider-icon-bg);
+  z-index: 100;
+  border-radius: 50%;
+  position: absolute;
+  box-shadow: 0.125rem 0.125rem 0.125rem 0.125rem var(--slider-card-shadow);
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.slider-icon.left {
+  left: var(--spacing-small);
+}
+
+.slider-icon.right {
+  right: var(--spacing-small);
+}
+
+.slider-icon.left:hover,
+.slider-icon.right:hover {
+  background-color: var(--text-muted-color);
+  box-shadow: 1px 1px 1px 1px var(--slider-bg-color);
+  transition: background 0.3s;
+}
+
+.slider-card {
+  width: 20rem;
+  background: #141800;
+  border-radius: var(--border-radius);
+  display: inline-block;
+  margin: 0 var(--spacing-small);
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  border: 1px solid #444444;
+}
+
+.slider-card:hover {
+  box-shadow: 4px 1px 7px 0px #902626a1;
+}
+
+.slider-card-content {
+  padding: var(--spacing-medium);
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-card-trailer {
+  display: inline-block;
+  z-index: 10;
+  text-align: center;
+  margin-top: var(--spacing-small);
+  padding: var(--spacing-small) var(--spacing-medium);
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s;
+}
+
+.slider-card-trailer:hover {
+  background-color: var(--accent-color-hover);
+}
+
+.not-available {
+  background-color: var(--slider-bg-color-transparent);
+}
+
+.not-available:hover {
+  background-color: var(--slider-bg-color-transparent);
+}
+
+.slider-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-medium);
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+}
