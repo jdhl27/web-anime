@@ -107,8 +107,18 @@ const Slider: React.FC<SliderProps> = ({
           </div>
         ))}
         {isLoadingMore && (
-          <div className="slider-loading">
-            <p>Cargando más...</p>
+          <div className="slider-card slider-loading-skeleton">
+            <div className="slider-card-image skeleton"></div>
+            <div className="slider-card-content">
+              <h3 className="slider-card-title skeleton"></h3>
+              <p className="slider-card-type skeleton"></p>
+              <div className="slider-card-info">
+                <span className="slider-card-score skeleton"></span>
+                <span className="slider-card-year skeleton"></span>
+              </div>
+              <span className="slider-card-recommendation skeleton"></span>
+              <div className="slider-card-trailer not-available skeleton"></div>
+            </div>
           </div>
         )}
       </div>

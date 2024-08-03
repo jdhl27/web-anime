@@ -139,7 +139,7 @@
 }
 
 .slider-card:hover {
-  box-shadow: 4px 1px 7px 0px #902626a1;
+  box-shadow: 4px 1px 7px 0px #3f435275;
 }
 
 .slider-card-content {
@@ -173,11 +173,53 @@
   background-color: var(--slider-bg-color-transparent);
 }
 
-.slider-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: var(--spacing-medium);
-  color: var(--text-color);
-  font-size: var(--font-size-base);
+.slider-loading-skeleton {
+  background: #1c1e26;
+  border: 1px solid #444444;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+  cursor: default;
+  transition: none;
+}
+
+.slider-loading-skeleton:hover {
+  box-shadow: 0 0 0;
+}
+
+.slider-card-image.skeleton {
+  width: 100%;
+  height: 27.5rem;
+  background: #444;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton {
+  background: #444;
+  border-radius: 0.25rem;
+  margin-bottom: var(--spacing-small);
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.slider-card-title.skeleton,
+.slider-card-type.skeleton,
+.slider-card-score.skeleton,
+.slider-card-year.skeleton,
+.slider-card-recommendation.skeleton,
+.slider-card-trailer.skeleton {
+  height: 1.2rem;
+  max-width: 90%;
+  border: none;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #444;
+  }
+  50% {
+    background-color: #555;
+  }
+  100% {
+    background-color: #444;
+  }
 }
