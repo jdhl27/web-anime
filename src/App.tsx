@@ -83,6 +83,27 @@ function App() {
         <Title />
         <Input isSearching={isSearching} handleValueInput={handleSearch} />
       </div>
+      {dataList.length > 0 ? (
+        <>
+          {searchTerm.length > 1 ? (
+            <div className="container-all-table">
+              <p>info: as the slider moves, the data may increase</p>
+              <table className="result-table">
+                <tbody>
+                  <tr>
+                    <td>Average score of the result:</td>
+                    <td className="average-score-total">
+                      {avarageScore == 0 ? "-" : avarageScore?.toFixed(1)} ★
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Total results:</td>
+                    <td className="result-total">{dataList.length}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ) : null}
           <Slider
             slides={dataList}
             handleClickEvent={handleSelectedAnime}
